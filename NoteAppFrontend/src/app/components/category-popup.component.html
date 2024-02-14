@@ -1,0 +1,9 @@
+
+<form (submit)="guardarCategorias()">
+  <div *ngFor="let category of categorias">
+    <mat-checkbox *ngIf="category.selected == false"[(ngModel)]="category.selected" name="categoriaSelecionada" [checked]="category.selected">{{ category.name }}</mat-checkbox>
+    <mat-checkbox *ngIf="category.selected == true" [checked]="category.selected"  name="categoriaSelecionada"  (change)="onChange(category)">{{ category.name }}</mat-checkbox>
+  </div>
+  <button type="submit">Guardar</button>
+</form>
+

@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="category-grid">
+    <div *ngFor="let category of categories" class="category-container">
+      <div class="category-name">{{category.name}}</div>
+      <span><button (click)="eliminarCategory(category.id)">Eliminar categoria</button></span>
+    </div>
+  </div>
+  <span>
+        <button (click)="crearCategory()">Nueva categoria</button>
+        <button (click)="volverANotas()">Volver a notas</button>
+  </span>
+</div>

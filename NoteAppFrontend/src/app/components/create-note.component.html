@@ -1,0 +1,14 @@
+<div>
+  <h2>Crear Nueva Nota</h2>
+  <form (submit)="createNote()">
+    <label for="title">Título:</label>
+    <input type="text" id="title" [(ngModel)]="note.title" name="title" required>
+
+    <label for="text">Contenido:</label>
+    <input id="text" [(ngModel)]="note.text" name="text" required>
+
+    <button type="submit">Guardar Nota</button>
+    <br>
+    <button class="volver" (click)="cancelar()">Cancelar</button>
+  </form>
+</div>

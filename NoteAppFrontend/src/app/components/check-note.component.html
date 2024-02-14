@@ -1,0 +1,25 @@
+<div>
+  <div class="note-container">
+    <div class="note-title">{{ note.title }}</div>
+    <br>
+    <div class="note-text">{{ note.text }}</div>
+    <br>
+    <div>
+      <span>
+        <button (click)="editarNota(note)">Editar nota</button>
+        <button class="eliminar" (click)="eliminarNota(note.id)">Eliminar nota</button>
+        <button *ngIf="note.active" class="archivar" (click)="archivarNota(note)">Archivar nota</button>
+        <button *ngIf="!note.active" class="desarchivar" (click)="desarchivarNota(note)">Desarchivar nota</button>
+      </span>
+      <br>
+    </div>
+    <div>
+      <button (click)="abrirPopupCategorias()">Categorias de la nota</button>
+    </div>
+  <div>   
+  <div>
+    <button class="volver" (click)="volverANotes()">Volver a notas</button>
+  </div>
+</div>
+
+
