@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NoteAppBackend.Service;
@@ -22,6 +23,8 @@ namespace NoteAppBackend
             {
                 options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
             });
+
+            CrearBaseDeDatosSiNoExiste();
 
             services.AddEndpointsApiExplorer();
 
@@ -64,6 +67,36 @@ namespace NoteAppBackend
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void CrearBaseDeDatosSiNoExiste()
+        {
+            var connectionString = Configuration.GetConnectionString("defaultConnection");
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var dbName = connection.Database;
+
+                if (string.IsNullOrEmpty(dbName))
+                {
+                    throw new InvalidOperationException("La cadena de conexión no contiene el nombre de la base de datos.");
+                }
+
+                var sql = $@"
+                IF NOT EXISTS (
+                    SELECT [name]
+                    FROM sys.databases
+                    WHERE [name] = '{dbName}'
+                )
+                CREATE DATABASE {dbName};
+            ";
+
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
