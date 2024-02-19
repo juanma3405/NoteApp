@@ -19,12 +19,14 @@ namespace NoteAppBackend
         {
             services.AddControllers();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            CrearBaseDeDatosSiNoExiste(connectionString);
+
+             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
             });
-
-            CrearBaseDeDatosSiNoExiste();
 
             services.AddEndpointsApiExplorer();
 
@@ -49,6 +51,7 @@ namespace NoteAppBackend
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
@@ -67,16 +70,18 @@ namespace NoteAppBackend
             {
                 endpoints.MapControllers();
             });
+
+            
         }
 
-        private void CrearBaseDeDatosSiNoExiste()
+        private void CrearBaseDeDatosSiNoExiste(string connectionString)
         {
-            var connectionString = Configuration.GetConnectionString("defaultConnection");
+            /*var connectionString = Configuration.GetConnectionString("defaultConnection");
 
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var dbName = connection.Database;
+                var dbName = "NoteApp";
 
                 if (string.IsNullOrEmpty(dbName))
                 {
@@ -96,7 +101,30 @@ namespace NoteAppBackend
                 {
                     command.ExecuteNonQuery();
                 }
+            }*/
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var dbName = "NoteApp"; 
+                var sql = $@"
+            IF NOT EXISTS (
+                SELECT [name]
+                FROM sys.databases
+                WHERE [name] = '{dbName}'
+            )
+            CREATE DATABASE {dbName};
+        ";
+
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
             }
+
+            var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+            connectionStringBuilder.InitialCatalog = "NoteApp";
+            Configuration["ConnectionStrings:DefaultConnection"] = connectionStringBuilder.ConnectionString;
         }
     }
 }
