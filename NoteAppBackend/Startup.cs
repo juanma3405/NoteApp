@@ -28,11 +28,11 @@ namespace NoteAppBackend
                options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
            });
 
-            using (var serviceScope = services.BuildServiceProvider().CreateScope())
+            /*using (var serviceScope = services.BuildServiceProvider().CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
-            }
+            }*/
 
 
             services.AddEndpointsApiExplorer();
