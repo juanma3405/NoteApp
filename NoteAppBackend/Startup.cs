@@ -23,10 +23,17 @@ namespace NoteAppBackend
 
             CrearBaseDeDatosSiNoExiste(connectionString);
 
-             services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
+           {
+               options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
+           });
+
+            using (var serviceScope = services.BuildServiceProvider().CreateScope())
             {
-                options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
-            });
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+            }
+
 
             services.AddEndpointsApiExplorer();
 
@@ -47,6 +54,7 @@ namespace NoteAppBackend
 
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<ICategoryService, CategoryService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -121,6 +129,7 @@ namespace NoteAppBackend
                     command.ExecuteNonQuery();
                 }
             }
+
 
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
             connectionStringBuilder.InitialCatalog = "NoteApp";
