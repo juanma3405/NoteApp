@@ -19,31 +19,19 @@ export class CategoryComponent {
     this.cargarCategories();
   }
 
-  cargarCategories(){
-     this.categoryService.apiCategoriesGetCategoriesGet$Json().subscribe(
-        (res:any) =>{
-            if (res && Array.isArray(res.value)){
-                this.categories = res.value;
-                console.log(res);
-            } else{
-                console.error("La respuesta no contiene un value que sea un array de categorias", res);
-            }
-        },
-        error => {
-            console.error("Error al obtener categorias", error);
-        }
-    );
+   cargarCategories(){
+     this.categoryService.apiCategoriesGetCategoriesGet$Json().subscribe({
+            next: (response: any) => this.categories = response.value,
+            error: (e) => console.error(e),
+            complete:() => console.info('complete')
+        })
   }
-
 
   eliminarCategory(id?: number){
     if (id !== undefined){
-    this.categoryService.apiCategoriesDeleteCategoryIdDelete({id}).subscribe(
-        res =>{
-             console.log("Se elimino la categoria");
-            }, 
-        error => {
-            console.error("Error al eliminar la categoria:", error);
+    this.categoryService.apiCategoriesDeleteCategoryIdDelete({id}).subscribe({
+            error: (e) => console.error(e),
+            complete:() => console.info('Se elimino categoria')
         }
     );
     }
@@ -64,9 +52,4 @@ export class CategoryComponent {
       this.cargarCategories();
     });
   }
-
-  /*ngOnDestroy(): void{
-    this.subscription.unsubscribe();
-    console.log('Observable cerrado');
-  }*/
 }

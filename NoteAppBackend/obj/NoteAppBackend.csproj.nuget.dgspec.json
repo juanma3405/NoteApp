@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\JuanmaPractica\\NoteApp\\NoteAppBackend\\NoteAppBackend.csproj": {}
+    "D:\\Ensolvers\\NoteAppBackend\\NoteAppBackend.csproj": {}
   },
   "projects": {
-    "D:\\JuanmaPractica\\NoteApp\\NoteAppBackend\\NoteAppBackend.csproj": {
+    "D:\\Ensolvers\\NoteAppBackend\\NoteAppBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\JuanmaPractica\\NoteApp\\NoteAppBackend\\NoteAppBackend.csproj",
+        "projectUniqueName": "D:\\Ensolvers\\NoteAppBackend\\NoteAppBackend.csproj",
         "projectName": "NoteAppBackend",
-        "projectPath": "D:\\JuanmaPractica\\NoteApp\\NoteAppBackend\\NoteAppBackend.csproj",
-        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "D:\\JuanmaPractica\\NoteApp\\NoteAppBackend\\obj\\",
+        "projectPath": "D:\\Ensolvers\\NoteAppBackend\\NoteAppBackend.csproj",
+        "packagesPath": "C:\\Users\\juanm\\.nuget\\packages\\",
+        "outputPath": "D:\\Ensolvers\\NoteAppBackend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\juanm\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

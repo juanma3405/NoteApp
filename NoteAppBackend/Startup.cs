@@ -21,7 +21,7 @@ namespace NoteAppBackend
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            CrearBaseDeDatosSiNoExiste(connectionString);
+            //CrearBaseDeDatosSiNoExiste(connectionString);
 
             services.AddDbContext<ApplicationDbContext>(options =>
            {
@@ -41,7 +41,8 @@ namespace NoteAppBackend
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddCors(opciones =>
+            //Cors para usar aplicacion local
+            /*services.AddCors(opciones =>
             {
                 opciones.AddDefaultPolicy(builder =>
                 {
@@ -49,6 +50,17 @@ namespace NoteAppBackend
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();
+                });
+            });*/
+
+            //Cors para el hosting
+            services.AddCors(opciones =>
+            {
+                opciones.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
                 });
             });
 
@@ -59,12 +71,17 @@ namespace NoteAppBackend
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-            if (env.IsDevelopment())
+            // para aplicacion local
+            /*if (env.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            }*/
+
+            // para hosting
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
@@ -82,35 +99,8 @@ namespace NoteAppBackend
             
         }
 
-        private void CrearBaseDeDatosSiNoExiste(string connectionString)
+        /*private void CrearBaseDeDatosSiNoExiste(string connectionString)
         {
-            /*var connectionString = Configuration.GetConnectionString("defaultConnection");
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                var dbName = "NoteApp";
-
-                if (string.IsNullOrEmpty(dbName))
-                {
-                    throw new InvalidOperationException("La cadena de conexión no contiene el nombre de la base de datos.");
-                }
-
-                var sql = $@"
-                IF NOT EXISTS (
-                    SELECT [name]
-                    FROM sys.databases
-                    WHERE [name] = '{dbName}'
-                )
-                CREATE DATABASE {dbName};
-            ";
-
-                using (var command = new SqlCommand(sql, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }*/
-
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -134,6 +124,6 @@ namespace NoteAppBackend
             var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
             connectionStringBuilder.InitialCatalog = "NoteApp";
             Configuration["ConnectionStrings:DefaultConnection"] = connectionStringBuilder.ConnectionString;
-        }
+        }*/
     }
 }

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "oRKmrarhP4GCNBSgJYeDbCVmoC/iYucGdFlPlnK5B1Y=",
+  "Source": "NoteAppBackend",
+  "BasePath": "_content/NoteAppBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

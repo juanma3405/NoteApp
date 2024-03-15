@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { CategoryService, NoteService } from '../src/app/api/services';
+import { NoteService } from '../src/app/api/services';
 import { CategoryDto, NoteDto, NoteDtoConCategories } from '../src/app/api/models';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
@@ -17,7 +17,7 @@ export class CheckNoteComponent {
   public categorias: CategoryDto[];
 
 
-  public constructor(private noteService: NoteService, private categoryService: CategoryService, private router: Router, private dialog: MatDialog){
+  public constructor(private noteService: NoteService, private router: Router, private dialog: MatDialog){
     this.note = { title: '', text: ''};
     this.categorias = [];
     this.noteConCategories = {};
@@ -38,30 +38,24 @@ export class CheckNoteComponent {
 
   desarchivarNota(note: NoteDto){
     if (note.id !== undefined){
-        this.noteService.apiNotesUnarchiveNoteIdPut({id: note.id}).subscribe(
-            res =>{
-                console.log("Se desarchivo la nota");
-                note.active = !note.active;
-                }, 
-            error => {
-                console.error("Error al desarchivar nota:", error);
-            }
+        this.noteService.apiNotesUnarchiveNoteIdPut({id: note.id}).subscribe({
+            next: () => note.active = !note.active,
+            error: (e) => console.error('Error al desarchivar nota: '+ e),
+            complete:() => console.info('Se desarchivo la nota')
+        }
         );
     }
     this.router.navigate(['/note']);
   }
-
+  
   archivarNota(note: NoteDto){
     if (note.id !== undefined) {
         this.noteService.apiNotesArchiveNoteIdPut({id: note.id}).subscribe(
-        res =>{
-             console.log("Se archivo la nota");
-             note.active = !note.active;
-            }, 
-        error => {
-            console.error("Error al archivar nota:", error);
-        }
-        );
+        {
+            next: () => note.active = !note.active,
+            error: (e) => console.error('Error al archivar la nota: '+e),
+            complete:() => console.info('Se archivo la nota')
+        });
     }
      this.router.navigate(['/note']);
   }

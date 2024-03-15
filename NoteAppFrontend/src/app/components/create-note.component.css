@@ -1,4 +1,3 @@
-/* Estilos del componente de creación de nota */
 
 body {
   margin: 0;
@@ -11,13 +10,14 @@ body {
 div {
   width: 100%;
   max-width: 400px;
-  margin: auto; /* Añadido para centrar horizontalmente */
+  margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  background-color: #f8f8f8;
 }
 
 h2 {

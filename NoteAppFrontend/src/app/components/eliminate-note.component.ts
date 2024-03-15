@@ -24,14 +24,10 @@ export class EliminateNoteComponent {
   }
 
   confirmDelete(){
-    this.noteService.apiNotesDeleteNoteIdDelete({id: this.idEliminateNote}).subscribe(
-        res =>{
-             console.log("Se elimino la nota");
-            }, 
-        error => {
-            console.error("Error al eliminar nota:", error);
-        }
-    );
+    this.noteService.apiNotesDeleteNoteIdDelete({id: this.idEliminateNote}).subscribe({
+            error: (e) => console.error('Error al eliminar la nota: '+e),
+            complete:() => console.info('Se elimino la nota')
+        });
      this.router.navigate(['/']);
   }
 }

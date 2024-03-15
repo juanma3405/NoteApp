@@ -16,15 +16,12 @@ export class EditNoteComponent {
     this.note = { title: '', text: ''};
     this.idEditNote = 0;
   }
-   editNote(){
-    this.noteService.apiNotesUpdateNoteIdPut({body: this.note, id: this.idEditNote}).subscribe(
-        res =>{
-             console.log("Se edito la nota");
-            }, 
-        error => {
-            console.error("Error al editar nota:", error);
-        }
-    );
+
+  editNote(){
+    this.noteService.apiNotesUpdateNoteIdPut({body: this.note, id: this.idEditNote}).subscribe({
+            error: (e) => console.error('Error al editar la nota'+ e),
+            complete:() => console.info('Se edito la nota')
+        });
     this.router.navigate(['/']);
   }
 

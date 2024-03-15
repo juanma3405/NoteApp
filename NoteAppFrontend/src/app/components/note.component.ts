@@ -42,66 +42,36 @@ export class NoteComponent {
    }
 
    cargarNotas() {
-    this.noteService.apiNotesGetNotesWithCategoriesGet$Json().subscribe(
-        (res:any) =>{
-            if (res && Array.isArray(res.value)){
-                this.notes = res.value;
-                console.log(res);
-            } else{
-                console.error("La respuesta no contiene un value que sea un array de notas", res);
-            }
-        },
-        error => {
-            console.error("Error al obtener notas", error);
-        }
-    );
+    this.noteService.apiNotesGetNotesWithCategoriesGet$Json().subscribe({
+         next: (response: any) => this.notes = response.value,
+         error: (e) => console.error("La respuesta no contiene un value que sea un array de notas" + e),
+         complete:() => console.info('Respuesta de notas exitosa')
+    })
    }
 
    cargarCategorias(){
-    this.categoryService.apiCategoriesGetCategoriesGet$Json().subscribe(
-        (res:any) =>{
-            if (res && Array.isArray(res.value)){
-                this.categories = res.value;
-                console.log(res);
-            } else{
-                console.error("La respuesta no contiene un value que sea un array de categorias", res);
-            }
-        },
-        error => {
-            console.error("Error al obtener categorias", error);
-        }
-    );
+    this.categoryService.apiCategoriesGetCategoriesGet$Json().subscribe({
+            next: (response: any) => this.categories = response.value,
+            error: (e) => console.error(e),
+            complete:() => console.info('complete')
+        })
    }
 
-   filtrarNotas(){
+    filtrarNotas(){
     if(this.filtroSeleccionado == 'activas'){
-        this.noteService.apiNotesGetActiveNotesGet$Json().subscribe(
-        (res:any) =>{
-            if (res && Array.isArray(res.value)){
-                this.notes = res.value;
-                console.log(res);
-            } else{
-                console.error("La respuesta no contiene un value que sea un arrya de notas", res);
-            }
-        },
-        error => {
-            console.error("Error al obtener notas activas", error);
-        }
+        this.noteService.apiNotesGetActiveNotesGet$Json().subscribe({
+         next: (response: any) => this.notes = response.value,
+         error: (e) => console.error("La respuesta no contiene un value que sea un array de notas" + e),
+         complete:() => console.info('Respuesta de notas activas exitosa')
+    }  
     );
     }
     if(this.filtroSeleccionado == 'archivadas'){
-        this.noteService.apiNotesGetArchivedNotesGet$Json().subscribe(
-        (res:any) =>{
-            if (res && Array.isArray(res.value)){
-                this.notes = res.value;
-                console.log(res);
-            } else{
-                console.error("La respuesta no contiene un value que sea un arrya de notas", res);
-            }
-        },
-        error => {
-            console.error("Error al obtener notas archivadas", error);
-        }
+        this.noteService.apiNotesGetArchivedNotesGet$Json().subscribe({
+         next: (response: any) => this.notes = response.value,
+         error: (e) => console.error("La respuesta no contiene un value que sea un array de notas" + e),
+         complete:() => console.info('Respuesta de notas archivadas exitosa')
+    }  
     );
     }
     if (this.filtroSeleccionado == 'notas'){
@@ -115,14 +85,11 @@ export class NoteComponent {
             this.cargarNotas();
         }
         if (this.categoriaSeleccionada.name !== null && this.categoriaSeleccionada.name !== undefined){
-            this.noteService.apiNotesGetNotesByCategoryNameGet$Json({name: this.categoriaSeleccionada.name}).subscribe(
-            (res:any) =>{
-                    this.notes = res.value;
-                    console.log(res);
-            },
-            error => {
-                console.error("Error al obtener notas filtradas", error);
-            }
+            this.noteService.apiNotesGetNotesByCategoryNameGet$Json({name: this.categoriaSeleccionada.name}).subscribe({
+         next: (response: any) => this.notes = response.value,
+         error: (e) => console.error("La respuesta no contiene un value que sea un array de notas" + e),
+         complete:() => console.info('Respuesta de notas segun categoria exitosa')
+    }  
         ); 
         }
     }

@@ -1,34 +1,33 @@
 <div class="notes-container">
   <div class="header">
-    <div class="filter-options">
-      <span>
-        <label for="filtroNotas">Filtrar Notas </label>
-        <br>
-        <select id="filtroNotas" [(ngModel)]="filtroSeleccionado" (change)="filtrarNotas()">
-          <option value="notas">Notas</option>
-          <option value="activas">Notas Activas</option>
-          <option value="archivadas">Notas Archivadas</option>
-        </select>
-      </span>
-      <span>
-        <label for="filtroNotasPorCategoria"> Filtrar Notas por categoria </label>
-        <br>
-        <select id="filtroNotasPorCategoria" [(ngModel)]="categoriaSeleccionada.name" name="categorySelect" (change)="filtrarNotasPorCategoria()">
-          <option value="Todas las categorias">Todas las categorias</option>
-          <option *ngFor="let category of categories">
-            {{category.name}}
-          </option>
-        </select>
-      </span>
-    </div>
-    <div class="action-buttons">
-      <span>
-        <button (click)="crearNota()">Nueva nota</button>
-      </span>
-      <span>
-        <button (click)="verCategorias()">Ver categorias</button>
-      </span>
-    </div>
+      <div class="filter-options">
+        <div class="select-container">
+          <br>
+          <select id="filtroNotas" [(ngModel)]="filtroSeleccionado" (change)="filtrarNotas()">
+            <option value="notas">Notas</option>
+            <option value="activas">Notas Activas</option>
+            <option value="archivadas">Notas Archivadas</option>
+          </select>
+        </div>
+        <div class="select-container">
+          <br>
+          <select id="filtroNotasPorCategoria" [(ngModel)]="categoriaSeleccionada.name" name="categorySelect"
+            (change)="filtrarNotasPorCategoria()">
+            <option value="Todas las categorias">Todas las categorias</option>
+            <option *ngFor="let category of categories">
+              {{category.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <div class="button-container">
+          <button (click)="crearNota()" class="btnCrear">Nueva nota</button>
+        </div>
+        <div class="button-container">
+          <button (click)="verCategorias()" class="btnCat">Ver categorias</button>
+        </div>
+      </div>
   </div>
   
   <div class="notes-grid" *ngIf="notes.length > 0">

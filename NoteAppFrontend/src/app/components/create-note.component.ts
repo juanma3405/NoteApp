@@ -15,13 +15,11 @@ export class CreateNoteComponent {
     this.note = { title: '', text: ''};
 
   }
-   createNote(){
-    this.noteService.apiNotesCreateNotePost({body: this.note}).subscribe(
-        res =>{
-             console.log("Se creo la nota");
-            }, 
-        error => {
-            console.error("Error al crear nota: ", error);
+
+  createNote(){
+    this.noteService.apiNotesCreateNotePost({body: this.note}).subscribe({
+            error: (e) => console.error('Error al crear la nota' + e),
+            complete:() => console.info('Nota creada')
         }
     );
     this.router.navigate(['/']);

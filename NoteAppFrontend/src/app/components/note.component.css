@@ -9,14 +9,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 70%;
-  max-width: 800px; 
+  align-items: flex-start;
+  width: 100%;
   margin-bottom: 20px;
 }
 
 .filter-options {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
   width: 100%;
 }
@@ -48,8 +50,39 @@
 .action-buttons {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
   width: 100%;
+}
+
+@media screen and (min-width: 600px){
+  .filter-options, .action-buttons {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filter-options,
+  .action-buttons {
+    flex: 1;
+  }
+
+  .select-container,
+  .button-container {
+    display: flex;
+    width: 100%;
+  }
+
+  select, button {
+    width: 100%;
+  } 
 }
 
 .categoria-estilo-boton {

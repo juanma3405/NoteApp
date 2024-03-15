@@ -10,12 +10,12 @@ var startup = new Startup(builder.Configuration);
 startup.ConfigureServices(builder.Services);
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var dbContext = services.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate();
-}
+    //dbContext.Database.Migrate();
+}*/
 
 
 startup.Configure(app, app.Environment);

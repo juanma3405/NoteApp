@@ -15,13 +15,11 @@ export class CreateCategoryComponent {
     this.category = { name: ''};
 
   }
-   createCategory(){
-    this.categoryService.apiCategoriesCreateCategoryPost({body: this.category}).subscribe(
-        res =>{
-             console.log("Se creo la categoria");
-            }, 
-        error => {
-            console.error("Error al crear categoria: ", error);
+
+  createCategory(){
+    this.categoryService.apiCategoriesCreateCategoryPost({body: this.category}).subscribe({
+            error: (e) => console.error('Error al crear categoria'+ e),
+            complete:() => console.info('Categoria creada')
         }
     );
     this.router.navigate(['/category']);
